@@ -20,12 +20,12 @@ include <vnf.scad>
 // Usage: As function:
 //   vnf = skin(profiles, [slices], [refine], [method], [sampling], [caps], [closed], [z]);
 // Description:
-//   Given a list of two ore more path `profiles` in 3d space, produces faces to skin a surface between
+//   Given a list of two or more path `profiles` in 3d space, produces faces to skin a surface between
 //   the profiles.  Optionally the first and last profiles can have endcaps, or the first and last profiles
 //   can be connected together.  Each profile should be roughly planar, but some variation is allowed.
 //   Each profile must rotate in the same clockwise direction.  If called as a function, returns a
 //   [VNF structure](vnf.scad) like `[VERTICES, FACES]`.  If called as a module, creates a polyhedron
-//    of the skined profiles.
+//    of the skinned profiles.
 //   
 //   The profiles can be specified either as a list of 3d curves or they can be specified as
 //   2d curves with heights given in the `z` parameter.  It is your responsibility to ensure
@@ -38,7 +38,7 @@ include <vnf.scad>
 //   Many interesting cases do not comply with this restriction.  Two basic methods can handle
 //   these cases: either add points to edges (resample) so that the profiles are compatible,
 //   or repeat vertices.  Repeating vertices allows two edges to terminate at the same point, creating
-//   triangular faces.  You can adjust non-matchines profiles yourself
+//   triangular faces.  You can adjust non-matching profiles yourself
 //   either by resampling them using `subdivide_path` or by duplicating vertices using
 //   `repeat_entries`.  It is OK to pass a profile that has the same vertex repeated, such as
 //   a square with 5 points (two of which are identical), so that it can match up to a pentagon.
@@ -47,12 +47,12 @@ include <vnf.scad>
 //   
 //   In order for skinned surfaces to look good it is usually necessary to use a fine sampling of
 //   points on all of the profiles, and a large number of extra interpolated slices between the
-//   profiles that you specify.  It is generally best if the triangules forming your polyhedron
+//   profiles that you specify.  It is generally best if the triangles forming your polyhedron
 //   are approximately equilateral.  The `slices` parameter specifies the number of slices to insert
 //   between each pair of profiles, either a scalar to insert the same number everywhere, or a vector
 //   to insert a different number between each pair.  To resample the profiles you can use set
 //   `refine=N` which will place `N` points on each edge of your profile.  This has the effect of
-//   muliplying the number of points by N, so a profile with 8 points will have 8*N points afer
+//   multiplying the number of points by N, so a profile with 8 points will have 8*N points after
 //   refinement.  Note that when dealing with continuous curves it is always better to adjust the
 //   sampling in your code to generate the desired sampling rather than using the `refine` argument.
 //   
@@ -62,7 +62,7 @@ include <vnf.scad>
 //   A uniform division may be impossible, in which case the code computes an approximation.
 //   See `subdivide_path` for more details.
 //    
-//   You can choose from four methods for specifying alignment for incomensurate profiles.
+//   You can choose from four methods for specifying alignment for incommensurate profiles.
 //   The available methods are `"distance"`, `"tangent"`, `"direct"` and `"reindex"`.
 //   It is useful to distinguish between continuous curves like a circle and discrete profiles
 //   like a hexagon or star, because the algorithms' suitability depend on this distinction.
